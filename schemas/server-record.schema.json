@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M-SERVICES server plaintext record (pre-encryption)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "country",
+    "proxy_host",
+    "payload",
+    "connection"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "country": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 80
+    },
+    "proxy_host": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 253
+    },
+    "payload": {
+      "type": "string",
+      "maxLength": 8192
+    },
+    "connection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocol",
+        "port"
+      ],
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "enum": [
+            "SSH",
+            "V2RAY",
+            "VMESS",
+            "VLESS",
+            "TROJAN",
+            "OTHER"
+          ]
+        },
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "sni": {
+          "type": "string",
+          "maxLength": 253
+        },
+        "dns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 253
+          },
+          "maxItems": 8
+        },
+        "uuid": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "username": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "password": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "tls": {
+          "type": "boolean"
+        },
+        "transport": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "extra": {
+          "type": "object"
+        }
+      }
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}
