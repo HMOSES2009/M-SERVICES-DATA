@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/HMOSES2009/M-SERVICES-DATA/schemas/manifest.schema.json",
+  "title": "M-SERVICES catalogue manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "manifest_version",
+    "revision",
+    "generated_at",
+    "catalogues",
+    "signing_key_id"
+  ],
+  "properties": {
+    "format": {
+      "const": "mservices-catalogue-manifest"
+    },
+    "manifest_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "revision": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "signing_key_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "catalogues": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "servers",
+        "tweaks"
+      ],
+      "properties": {
+        "servers": {
+          "$ref": "#/$defs/catalogue"
+        },
+        "tweaks": {
+          "$ref": "#/$defs/catalogue"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "catalogue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "schema_version",
+        "record_count"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "schema_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "record_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}
